@@ -4,15 +4,58 @@ public class Bus<T> extends Transport {
 
     private T driver;
 
+    private Capacity capacity;
+
+    private enum Capacity {
+        EXTRA_SMALL(0, 10),
+        SMALL(11, 25),
+        MIDDLE(40, 50),
+        LARGE(60, 80),
+        EXTRA_LARGE(100, 120);
+
+        private int downCapacity;
+        private int upCapacity;
+
+        Capacity(int downCapacity, int upCapacity) {
+            this.downCapacity = downCapacity;
+            this.upCapacity = upCapacity;
+        }
+
+        public int getDownCapacity() {
+            return downCapacity;
+        }
+
+        public void setDownCapacity(int downCapacity) {
+            this.downCapacity = downCapacity;
+        }
+
+        public int getUpCapacity() {
+            return upCapacity;
+        }
+
+        public void setUpCapacity(int upCapacity) {
+            this.upCapacity = upCapacity;
+        }
+
+        @Override
+        public String toString() {
+            return "Вместимость: " + getDownCapacity() + " - " + getUpCapacity() + " мест";
+        }
+    }
+
     public Bus(String brand,
                String model,
-               double engineVolume, T driver) {
-        super(brand, model, engineVolume);
+               double engineVolume, T driver, String type) {
+        super(brand, model, engineVolume, type);
         this.driver = driver;
     }
 
     public T getDriver() {
         return driver;
+    }
+
+    public Capacity getCapacity() {
+        return capacity;
     }
 
     @Override

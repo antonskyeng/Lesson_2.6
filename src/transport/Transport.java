@@ -6,10 +6,13 @@ public abstract class Transport<T> implements Competing {
     private final String model;
     private double engineVolume;
 
+    private final Type type;
+
 
     public Transport(String brand,
                      String model,
-                     double engineVolume) {
+                     double engineVolume, String type) {
+        this.type = Type.valueOf(type);
         if (brand == null || brand.isEmpty()) {
             brand = "default";
         }
@@ -33,6 +36,10 @@ public abstract class Transport<T> implements Competing {
         return engineVolume;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public void setEngineVolume(double engineVolume) {
         if (engineVolume <= 0) {
             engineVolume = 1.6;
@@ -43,6 +50,14 @@ public abstract class Transport<T> implements Competing {
     public abstract void startMove();
 
     public abstract void finishMove();
+
+    public void printType() {
+        if (getType() == null) {
+            System.out.println("Данных по транспортному средству недостаточно");
+        } else {
+            System.out.println("Тип кузова данного транспортного средства: " + getType());
+        }
+    }
 
     @Override
     public String toString() {

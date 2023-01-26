@@ -13,8 +13,8 @@ public class Main {
                     "Car brand №" + i,
                     "Car model №" + i,
                     1.6,
-                    driverB
-            );
+                    driverB,
+                    "CAR");
             DriverC driverC = new DriverC(
                     "Driver cat. C №" + i,
                     true,
@@ -24,8 +24,8 @@ public class Main {
                     "Truck brand №" + i,
                     "Truck model №" + i,
                     4.5,
-                    driverC
-            );
+                    driverC,
+                    "TRUCK");
             DriverD driverD = new DriverD(
                     "Driver cat. D №" + i,
                     true,
@@ -35,11 +35,16 @@ public class Main {
                     "Bus brand №" + i,
                     "Bus model №" + i,
                     4.0,
-                    driverD
-            );
+                    driverD,
+                    "BUS");
             printInfo(car);
             printInfo(bus);
             printInfo(truck);
+
+            car.printType();
+            bus.printType();
+            truck.printType();
+
         }
     }
 
