@@ -1,11 +1,18 @@
 package transport;
 
-public class Car extends Transport {
+public class Car<T> extends Transport {
+
+    private T driver;
 
     public Car(String brand,
                String model,
-               double engineVolume) {
+               double engineVolume, T driver) {
         super(brand, model, engineVolume);
+        this.driver = driver;
+    }
+
+    public T getDriver() {
+        return driver;
     }
 
     @Override

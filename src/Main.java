@@ -43,7 +43,7 @@ public class Main {
         }
     }
 
-    private static void printInfo(Transport<?> transport) {
+    private static void printInfo(Transport<? extends Driver> transport) {
         System.out.println("Водитель " + transport.getDriver().getName() + " управляет автомобилем " + transport.getBrand() + " и будет участвовать в заезде");
     }
 

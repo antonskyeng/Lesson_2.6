@@ -1,10 +1,11 @@
 package transport;
 
-public abstract class Transport implements Competing {
+public abstract class Transport<T> implements Competing {
 
     private final String brand;
     private final String model;
     private double engineVolume;
+
 
     public Transport(String brand,
                      String model,
@@ -50,4 +51,5 @@ public abstract class Transport implements Competing {
                 "объем двигателя: " + engineVolume;
     }
 
+    public abstract T getDriver();
 }
