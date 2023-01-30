@@ -1,8 +1,8 @@
 package transport;
 
-public class Truck<T> extends Transport {
+import java.util.List;
 
-    private T driver;
+public class Truck<DriverC> extends Transport {
 
     private Carring carring;
 
@@ -10,7 +10,7 @@ public class Truck<T> extends Transport {
 
         N1(0.0f, 3.50f),
         N2(3.51f, 12f),
-        N3(12.1f, (Float)null);
+        N3(12.1f);
 
         private float downLoadCarring;
         private float upLoadCarring;
@@ -44,28 +44,23 @@ public class Truck<T> extends Transport {
 
         @Override
         public String toString() {
-            if (getUpLoadCarring() == (Float)null) {
-                return "Грузоподъемность: от " + getDownLoadCarring() + " тонн";
-            } else {
-                return "Грузоподъемность: от " + getDownLoadCarring() + " тонн до " + getUpLoadCarring() + " тонн";
-            }
+            return "Грузоподъемность: от " + getDownLoadCarring() + " тонн до " + getUpLoadCarring() + " тонн";
         }
     }
 
     public Truck(String brand,
                  String model,
-                 double engineVolume, T driver, String type) {
-        super(brand, model, engineVolume, type);
-        this.driver = driver;
+                 double engineVolume, Driver driver, List<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, mechanics);
     }
-
-    public T getDriver() {
-        return driver;
-    }
-
 
     public Carring getCarring() {
         return carring;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.TRUCK;
     }
 
     @Override
@@ -76,6 +71,10 @@ public class Truck<T> extends Transport {
     @Override
     public void finishMove() {
         System.out.println("Грузовик марки " + getBrand() + " закончил движение");
+    }
+
+    public void diagnostics() {
+        System.out.println("Грузовик марки " + getBrand() + " прошел диагностику");
     }
 
     @Override
@@ -100,4 +99,3 @@ public class Truck<T> extends Transport {
     }
 
 }
-

@@ -1,8 +1,8 @@
 package transport;
 
-public class Car<T> extends Transport {
+import java.util.List;
 
-    private T driver;
+public class Car<DriverB> extends Transport {
 
     private BodyType bodyType;
 
@@ -31,17 +31,17 @@ public class Car<T> extends Transport {
 
     public Car(String brand,
                String model,
-               double engineVolume, T driver, String type) {
-        super(brand, model, engineVolume, type);
-        this.driver = driver;
-    }
-
-    public T getDriver() {
-        return driver;
+               double engineVolume, Driver driver, List<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, mechanics);
     }
 
     public BodyType getBodyType() {
         return bodyType;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.CAR;
     }
 
     @Override
@@ -52,6 +52,11 @@ public class Car<T> extends Transport {
     @Override
     public void finishMove() {
         System.out.println("Автомобиль марки " + getBrand() + " закончил движение");
+    }
+
+    @Override
+    public void diagnostics() {
+        System.out.println("Автомобиль марки " + getBrand() + " прошел диагностику");
     }
 
     @Override

@@ -1,18 +1,22 @@
 package transport;
 
-public abstract class Transport<T> implements Competing {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public abstract class Transport<T extends Driver> implements Competing {
 
     private final String brand;
     private final String model;
     private double engineVolume;
 
-    private final Type type;
+    private Driver driver;
 
+    private List<Mechanic> mechanics;
 
     public Transport(String brand,
                      String model,
-                     double engineVolume, String type) {
-        this.type = Type.valueOf(type);
+                     double engineVolume, Driver driver, List<Mechanic> mechanics) {
         if (brand == null || brand.isEmpty()) {
             brand = "default";
         }
@@ -22,6 +26,8 @@ public abstract class Transport<T> implements Competing {
         }
         this.model = model;
         setEngineVolume(engineVolume);
+        this.driver = driver;
+        this.mechanics = mechanics;
     }
 
     public String getBrand() {
@@ -36,9 +42,7 @@ public abstract class Transport<T> implements Competing {
         return engineVolume;
     }
 
-    public Type getType() {
-        return type;
-    }
+    public abstract Type getType();
 
     public void setEngineVolume(double engineVolume) {
         if (engineVolume <= 0) {
@@ -47,16 +51,27 @@ public abstract class Transport<T> implements Competing {
         this.engineVolume = engineVolume;
     }
 
+    public List<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public boolean checkTransportNeedSTO() {
+        try {
+            diagnostics();
+        } catch (TransportTypeException e) {
+            return false;
+        }
+        return true;
+    }
+
     public abstract void startMove();
 
     public abstract void finishMove();
 
+    public abstract void diagnostics() throws TransportTypeException;
+
     public void printType() {
-        if (getType() == null) {
-            System.out.println("Данных по транспортному средству недостаточно");
-        } else {
-            System.out.println("Тип кузова данного транспортного средства: " + getType());
-        }
+        System.out.println("Тип кузова данного транспортного средства: " + getType());
     }
 
     @Override
@@ -66,5 +81,7 @@ public abstract class Transport<T> implements Competing {
                 "объем двигателя: " + engineVolume;
     }
 
-    public abstract T getDriver();
+    public Driver getDriver() {
+        return driver;
+    }
 }
